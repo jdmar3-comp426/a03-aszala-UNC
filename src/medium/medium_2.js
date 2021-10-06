@@ -84,6 +84,68 @@ export const allCarStats = {
  * }
  */
 export const moreStats = {
-    makerHybrids: undefined,
-    avgMpgByYearAndHybrid: undefined
+    makerHybrids: makerHybrids(),
+    avgMpgByYearAndHybrid: avgMpgByYearAndHybrid()
 };
+
+function makerHybrids() {
+	let arr = {};
+	let data = mpg_data.filter(data => data.hybrid);
+
+	data.forEach((elem) => {
+		if (elem.make in arr) {
+			arr[elem.make].push(elem.id);
+		} else {
+			arr[elem.make] = [elem.id];
+		}
+	});
+
+	let finalArr = [];
+
+	for (const [key, value] of Object.entries(arr)) {
+		finalArr.push( { make: key, hybrids: value } );
+	}
+
+	return finalArr;
+}
+
+function avgMpgByYearAndHybrid() {
+	let arr = {};
+	let counts = {};
+
+	mpg_data.forEach((elem) => {
+		if (elem.year in arr) {
+			if (elem.hybrid) {
+				arr[elem.year].hybrid[0] = ((arr[elem.year].hybrid[0] * counts[elem.year].hybrid) + elem.city_mpg) / (counts[elem.year].hybrid+1);
+				arr[elem.year].hybrid[1] = ((arr[elem.year].hybrid[0] * counts[elem.year].hybrid) + elem.highway_mpg) / (counts[elem.year].hybrid+1);
+				
+				counts[elem.year].hybrid += 1;
+			} else {
+				arr[elem.year].notHybrid[0] = ((arr[elem.year].notHybrid[0] * counts[elem.year].notHybrid) + elem.city_mpg) / (counts[elem.year].notHybrid+1);
+				arr[elem.year].notHybrid[1] = ((arr[elem.year].notHybrid[0] * counts[elem.year].notHybrid) + elem.highway_mpg) / (counts[elem.year].notHybrid+1);
+
+				counts[elem.year].notHybrid += 1;
+			}
+		} else {
+			arr[elem.year] = {};
+			counts[elem.year] = {};
+			
+			if (elem.hybrid) {
+				arr[elem.year].hybrid = [elem.city_mpg, elem.highway_mpg];
+				arr[elem.year].notHybrid = [0, 0];
+
+				counts[elem.year].hybrid = 1;
+				counts[elem.year].notHybrid = 0;
+			} else {
+				arr[elem.year].hybrid = [0, 0];
+				arr[elem.year].notHybrid = [elem.city_mpg, elem.highway_mpg];
+				
+				counts[elem.year].hybrid = 0;
+				counts[elem.year].notHybrid = 1;
+			}
+			
+		}
+	});
+
+	return arr;
+}

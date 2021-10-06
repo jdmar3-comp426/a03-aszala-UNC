@@ -91,4 +91,4 @@ equal(stats.variance, 2.6666666666666665)
 equal(stats.standard_deviation, 1.632993161855452)
 
 
-console.log('\u001b[' + 32 + 'm' + "Passed all checks!" + '\u001b[0m');
+console.log('\u001b[' + 32 + 'm' + "Passed all checks through Medium 1!" + '\u001b[0m');
