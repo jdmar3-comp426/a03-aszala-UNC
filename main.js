@@ -1,5 +1,6 @@
 import { sumToString, getIncreasingArray, maxAndMin, countArray } from "./src/mild/mild_1.js"
 import { identifyVariable, identifyArray, removeKey, removeKeyNonDestructive, removeKeys } from "./src/mild/mild_2.js"
+import { getSum, getMedian, getStatistics } from "./src/medium/medium_1.js"
 
 import { equal } from 'assert';
 
@@ -69,6 +70,25 @@ equal(obj.potato, 'cabbage');
 equal(newObj.name, undefined);
 equal(newObj.age, undefined);
 equal(newObj.potato, 'cabbage');
+
+// Medium 1 Tests
+
+// Get Sum
+equal(getSum([1, 2, 3]), 6);
+
+// Get Median
+equal(getMedian([3,2,5,6,2,7,4,2,7,5]), 4.5);
+
+// Get Statistics
+let stats = getStatistics([3,2,4,5,5,5,2,6,7]);
+equal(stats.length, 9)
+equal(stats.sum, 39)
+equal(stats.mean, 4.333333333333333)
+equal(stats.median, 5)
+equal(stats.min, 2)
+equal(stats.max, 7)
+equal(stats.variance, 2.6666666666666665)
+equal(stats.standard_deviation, 1.632993161855452)
 
 
 console.log('\u001b[' + 32 + 'm' + "Passed all checks!" + '\u001b[0m');
