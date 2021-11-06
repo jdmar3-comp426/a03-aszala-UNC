@@ -59,13 +59,13 @@ export function getStatistics(array) {
 	std = Math.sqrt(std / array.length);
 
 	let stats = {
-		min: Math.min(...array),
-		median: getMedian(array),
-		max: Math.max(...array),
-		variance: variance(array, mean),
-		mean: mean,
 		length: array.length,
 		sum: sum,
+		mean: mean,
+		median: getMedian(array),
+		min: Math.min(...array),
+		max: Math.max(...array),
+		variance: variance(array, mean),
 		standard_deviation: std
 	};
 
