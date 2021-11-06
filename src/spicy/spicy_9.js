@@ -4,8 +4,6 @@
  *
  **************************************************************************/
 
-import { allCarStats } from "../medium/medium_2";
-
 /**
  * Write and export a function named "repeat" that calls a given function
  *   over and over a specified number of times.
