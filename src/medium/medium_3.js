@@ -17,10 +17,18 @@ queries.
  * sorted by horsepower in descending order.
  *
  */
-export function searchHighPower(car_data, minHorsepower, minTorque) {
-	return car_data.filter(data => { return (data.horsePower >= minHorsepower && data.torque >= minTorque); }).sort((a, b) => b.horsepower - a.horsepower);
-}
 
+export function searchHighPower(car_data, minHorsepower, minTorque) {
+	return car_data.filter(data => data.horsePower >= minHorsepower && data.torque >= minTorque).sort((a, b) => {
+		if ( a.horsepower < b.horsepower ){
+			return 1;
+		}
+		if ( a.horsepower > b.horsepower ){
+			return -1;
+		}
+		return 0
+	});
+}
 
 /**
  * @param {array} car_data
@@ -46,9 +54,16 @@ export function searchMpg(car_data, minCity, minHighway) {
  * @returns {[]} array of cars
  */
 export function searchName(car_data, searchTerm) {
-	return car_data.filter(data => searchTerm.includes(data.id)).sort((a,b) => a.id.indexOf(searchTerm) - b.id.indexOf(searchTerm));
+	return car_data.filter(data => data.id.toLowerCase().includes(searchTerm.toLowerCase())).sort((a,b) => {
+		if ( a.id.toLowerCase().indexOf(searchTerm.toLowerCase()) < b.id.toLowerCase().indexOf(searchTerm.toLowerCase()) ){
+			return -1;
+		}
+		if ( a.id.toLowerCase().indexOf(searchTerm.toLowerCase()) > b.id.toLowerCase().indexOf(searchTerm.toLowerCase()) ){
+			return 1;
+		}
+		return 0
+	});
 }
-
 
 /**
  * Find all cars made in the years asked for.
