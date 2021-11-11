@@ -18,7 +18,7 @@ export const repeat = (fn, n, ...params) => {
 	let vals = [];
 
 	for (let i=0;i<n;i++) {
-		vals.push(fn(params));
+		vals.push(fn(params[0]));
 	}
 
 	return vals;
@@ -161,7 +161,7 @@ export const filter = (arr, test) => {
 			fail.push(arr[i]);
 	}
 
-	return { fail: fail, pass: pass };
+	return { pass: pass, fail: fail };
 };
 
 
